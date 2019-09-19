@@ -20,3 +20,4 @@ def search(query:str):
             magnet = False
         results.append({"name": course_url["href"], "magnet": magnet, "link": torrent_link["href"]})
     return results
+
