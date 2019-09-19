@@ -1,12 +1,12 @@
 import requests
-base_url = "https://freetutorials.se/"
-base_search_url = "https://freetutorials.se/?s="
 from bs4 import BeautifulSoup
 import re
+BASE_URL = "https://freetutorials.se/"
+BASE_SEARCH_URL = f"{BASE_URL}?s="
 def search(query:str):
     results = []
     query:str = "+".join(query.split(" "))
-    search_url = f"{base_search_url}{query}"
+    search_url = f"{BASE_SEARCH_URL}{query}"
     response = requests.get(search_url)
     soup = BeautifulSoup(response.text, "html.parser")
     all_articles = soup.find_all("article", attrs={"class": "post-box"})
