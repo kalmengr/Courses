@@ -1,12 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-BASE_URL = "https://freetutorials.se/"
-BASE_SEARCH_URL = f"{BASE_URL}?s="
+BASE_SEARCH_URL = "https://freetutorials.se/?s="
 def search(query:str):
     results = []
     query:str = "+".join(query.split(" "))
-    search_url = f"{BASE_SEARCH_URL}{query}"
+    search_url = "{BASE_SEARCH_URL}{query}".format(BASE_SEARCH_URL=BASE_SEARCH_URL, query=query)
     response = requests.get(search_url)
     soup = BeautifulSoup(response.text, "html.parser")
     all_articles = soup.find_all("article", attrs={"class": "post-box"})
@@ -21,4 +20,3 @@ def search(query:str):
             magnet = False
         results.append({"name": course_url["href"], "magnet": magnet, "link": torrent_link["href"]})
     return results
-search("after effects")
